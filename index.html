@@ -63,9 +63,14 @@
     const params = new URLSearchParams(window.location.search);
     const code = params.get("ENC_SEQ_NUM");
 
-    const validCode = "71DDF2EDDB1C6F42210FE025ED5A1734";
+    const validCodes = [
+    "71DDF2EDDB1C6F42210FE025ED5A1734",
+    "1234567890ABCDEF1234567890ABCDEF",
+    "A1B2C3D4E5F60718293A4B5C6D7E8F90",
+    "9876543210FEDCBA9876543210FEDCBA"
+];
 
-    if (code === validCode) {
+if (validCodes.includes(code)) {
         document.getElementById("receipt").style.display = "block";
     } else {
         document.getElementById("error").innerText = "❌ Invalid or Missing Receipt Code";

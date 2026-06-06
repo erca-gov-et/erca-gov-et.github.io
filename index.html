@@ -46,7 +46,10 @@
 
     <div class="title">Ministry of Revenue: Valid Receipt</div>
 
-    <div class="line">የደረሰኝ መለያ ቁጥር: 16313</div>
+    <div class="line">
+    የደረሰኝ መለያ ቁጥር:
+    <span id="receiptNo"></span>
+    </div>
     <div class="line">የግብር ከፋይ መለያ ቁጥር: 0000233907</div>
     <div class="line">የደረሰኝ ዓይነት: CREDIT SALES INVOICE/VAT/EXCISE</div>
     <div class="line">የግብር ከፋዩ ስም: LEGESSE G/MARIAM OPTICS</div>
@@ -60,21 +63,71 @@
 <div id="error" class="error"></div>
 
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("ENC_SEQ_NUM");
+const params = new URLSearchParams(window.location.search);
+const code = params.get("ENC_SEQ_NUM");
 
-    const validCodes = [
-    "71DDF2EDDB1C6F42210FE025ED5A1734",
-    "1234567890ABCDEF1234567890ABCDEF",
-    "A1B2C3D4E5F60718293A4B5C6D7E8F90",
-    "9876543210FEDCBA9876543210FEDCBA"
+const receipts = [
+{ code:"71DDF2EDDB1C6F42210FE025ED5A1734", receiptNo:"16313" },
+{ code:"A8C1F94E6B237D5F10E4A8C7D92B3F61", receiptNo:"16314" },
+{ code:"B73D9A5F1E6C248D90AB73E5F1C6248D", receiptNo:"16315" },
+{ code:"C4E8A19D7B325F60C4E8A19D7B325F60", receiptNo:"16316" },
+{ code:"D91B5F73A2C64E8DD91B5F73A2C64E8D", receiptNo:"16317" },
+{ code:"E6A2C94F1D73B58AE6A2C94F1D73B58A", receiptNo:"16318" },
+{ code:"F37D1A8C5B64E29FF37D1A8C5B64E29F", receiptNo:"16319" },
+{ code:"1A9E4C7D2B5F83A61A9E4C7D2B5F83A6", receiptNo:"16320" },
+{ code:"2B7F5D1A9C4E83D22B7F5D1A9C4E83D2", receiptNo:"16321" },
+{ code:"3C8A6E2B1D5F94E73C8A6E2B1D5F94E7", receiptNo:"16322" },
+{ code:"4D9B7F3C2E6A15F84D9B7F3C2E6A15F8", receiptNo:"16323" },
+{ code:"5EA1C84D3F7B26A95EA1C84D3F7B26A9", receiptNo:"16324" },
+{ code:"6FB2D95E4A8C37BA6FB2D95E4A8C37BA", receiptNo:"16325" },
+{ code:"7AC3E16F5B9D48CB7AC3E16F5B9D48CB", receiptNo:"16326" },
+{ code:"8BD4F27A6CAE59DC8BD4F27A6CAE59DC", receiptNo:"16327" },
+{ code:"9CE5A38B7DBF6AED9CE5A38B7DBF6AED", receiptNo:"16328" },
+{ code:"ADF6B49C8EC07BFEADF6B49C8EC07BFE", receiptNo:"16329" },
+{ code:"BE07C5AD9FD18C0FBE07C5AD9FD18C0F", receiptNo:"16330" },
+{ code:"CF18D6BEA0E29D10CF18D6BEA0E29D10", receiptNo:"16331" },
+{ code:"D029E7CFB1F3AE21D029E7CFB1F3AE21", receiptNo:"16332" },
+{ code:"E13AF8D0C204BF32E13AF8D0C204BF32", receiptNo:"16333" },
+{ code:"F24B09E1D315C043F24B09E1D315C043", receiptNo:"16334" },
+{ code:"035C1AF2E426D154035C1AF2E426D154", receiptNo:"16335" },
+{ code:"146D2B03F537E265146D2B03F537E265", receiptNo:"16336" },
+{ code:"257E3C140648F376257E3C140648F376", receiptNo:"16337" },
+{ code:"368F4D2517590487368F4D2517590487", receiptNo:"16338" },
+{ code:"47905E36286A159847905E36286A1598", receiptNo:"16339" },
+{ code:"58A16F47397B26A958A16F47397B26A9", receiptNo:"16340" },
+{ code:"69B2705848AC37BA69B2705848AC37BA", receiptNo:"16341" },
+{ code:"7AC3816959BD48CB7AC3816959BD48CB", receiptNo:"16342" },
+{ code:"8BD4927A6ACE59DC8BD4927A6ACE59DC", receiptNo:"16343" },
+{ code:"9CE5A38B7DDF6AED9CE5A38B7DDF6AED", receiptNo:"16344" },
+{ code:"ADF6B49C8EE07BFEADF6B49C8EE07BFE", receiptNo:"16345" },
+{ code:"BE07C5AD9FF18C0FBE07C5AD9FF18C0F", receiptNo:"16346" },
+{ code:"CF18D6BEA1029D10CF18D6BEA1029D10", receiptNo:"16347" },
+{ code:"D029E7CFB213AE21D029E7CFB213AE21", receiptNo:"16348" },
+{ code:"E13AF8D0C324BF32E13AF8D0C324BF32", receiptNo:"16349" },
+{ code:"F24B09E1D435C043F24B09E1D435C043", receiptNo:"16350" },
+{ code:"035C1AF2E546D154035C1AF2E546D154", receiptNo:"16351" },
+{ code:"146D2B03F657E265146D2B03F657E265", receiptNo:"16352" },
+{ code:"257E3C140768F376257E3C140768F376", receiptNo:"16353" },
+{ code:"368F4D2518790487368F4D2518790487", receiptNo:"16354" },
+{ code:"47905E36298A159847905E36298A1598", receiptNo:"16355" },
+{ code:"58A16F473A9B26A958A16F473A9B26A9", receiptNo:"16356" },
+{ code:"69B270584BAC37BA69B270584BAC37BA", receiptNo:"16357" },
+{ code:"7AC381695CBD48CB7AC381695CBD48CB", receiptNo:"16358" },
+{ code:"8BD4927A6DCE59DC8BD4927A6DCE59DC", receiptNo:"16359" },
+{ code:"9CE5A38B7EDF6AED9CE5A38B7EDF6AED", receiptNo:"16360" },
+{ code:"ADF6B49C8FE07BFEADF6B49C8FE07BFE", receiptNo:"16361" },
+{ code:"BE07C5ADA0F18C0FBE07C5ADA0F18C0F", receiptNo:"16362" }
 ];
 
-if (validCodes.includes(code)) {
-        document.getElementById("receipt").style.display = "block";
-    } else {
-        document.getElementById("error").innerText = "❌ Invalid or Missing Receipt Code";
-    }
+const receipt = receipts.find(r => r.code === code);
+
+if (receipt) {
+    document.getElementById("receiptNo").innerText = receipt.receiptNo;
+    document.getElementById("receipt").style.display = "block";
+} else {
+    document.getElementById("error").innerText =
+        "❌ Invalid or Missing Receipt Code";
+}
 </script>
 
 </body>

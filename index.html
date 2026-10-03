@@ -120,9 +120,15 @@ const receipts = [
 ];
 
 const receipt = receipts.find(r => r.code === code);
-
 if (receipt) {
     document.getElementById("receiptNo").innerText = receipt.receiptNo;
+
+    if (receipt.receiptNo === "16319" || receipt.receiptNo === "16332") {
+        document.getElementById("tin").innerText = "0000233907";
+        document.getElementById("taxpayerName").innerText =
+            "LEGESE G/MARIAM DEBELA OPTICS";
+    }
+
     document.getElementById("receipt").style.display = "block";
 } else {
     document.getElementById("error").innerText =

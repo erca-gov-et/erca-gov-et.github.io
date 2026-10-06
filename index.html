@@ -6,37 +6,37 @@
 <title>Valid Receipt</title>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #ffffff;
-        text-align: center;
-        margin: 0;
-        padding: 20px;
-    }
+body {
+font-family: Arial, sans-serif;
+background-color: #ffffff;
+text-align: center;
+margin: 0;
+padding: 20px;
+}
 
-    #receipt {
-        display: none;
-    }
+#receipt {
+display: none;
+}
 
-    .title {
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 30px;
-    }
+.title {
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 30px;
+}
 
-    .line {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 6px 0;
-    }
+.line {
+font-size: 14px;
+font-weight: bold;
+margin: 6px 0;
+}
 
-    .error {
-        text-align: center;
-        margin-top: 50px;
-        font-weight: bold;
-        color: red;
-        font-size: 20px;
-    }
+.error {
+text-align: center;
+margin-top: 50px;
+font-weight: bold;
+color: red;
+font-size: 20px;
+}
 </style>
 </head>
 
@@ -44,19 +44,19 @@
 
 <div id="receipt">
 
-    <div class="title">Ministry of Revenue: Valid Receipt</div>
+<div class="title">Ministry of Revenue: Valid Receipt</div>
 
-    <div class="line">
-    የደረሰኝ መለያ ቁጥር:
-    <span id="receiptNo"></span>
-    </div>
-    <div class="line">የግብር ከፋይ መለያ ቁጥር: <span id ="tin">0105605008</span></div>
-    <div class="line">የደረሰኝ ዓይነት: CREDIT SALES INVOICE/VAT/EXCISE</div>
-    <div class="line">የግብር ከፋዩ ስም: <span id ="taxpayerName">AWOL HABIB HASSEN OPTICS</span></div>
-    <div class="line">የግብር ከፋዩ ታክስ ማዕከል: MOR-SMALL TAX PAYERS OFFICE (LTO)</div>
-    <div class="line">የቫት/VAT/ መለያ ቁጥር: 62272</div>
-    <div class="line">የቫት/VAT/ ቁጥር: 132342350140</div>
-    <div class="line">የማተሚያ ቤት ስም: BERHANENA SELAM PRINTING ENTERPRISE</div>
+<div class="line">
+የደረሰኝ መለያ ቁጥር:
+<span id="receiptNo"></span>
+</div>
+<div class="line">የግብር ከፋይ መለያ ቁጥር: 0000233907</div>
+<div class="line">የደረሰኝ ዓይነት: CREDIT SALES INVOICE/VAT/EXCISE</div>
+<div class="line">የግብር ከፋዩ ስም: LEGESE G/MARIAM DEBELA OPTICS</div>
+<div class="line">የግብር ከፋዩ ታክስ ማዕከል: MOR-SMALL TAX PAYERS OFFICE (LTO)</div>
+<div class="line">የቫት/VAT/ መለያ ቁጥር: 62272</div>
+<div class="line">የቫት/VAT/ ቁጥር: 132342350140</div>
+<div class="line">የማተሚያ ቤት ስም: BERHANENA SELAM PRINTING ENTERPRISE</div>
 
 </div>
 
@@ -120,21 +120,21 @@ const receipts = [
 ];
 
 const receipt = receipts.find(r => r.code === code);
+
 if (receipt) {
-    document.getElementById("receiptNo").innerText = receipt.receiptNo;
-
-    if (receipt.receiptNo === "16319" || receipt.receiptNo === "16332") {
-        document.getElementById("tin").innerText = "0000233907";
-        document.getElementById("taxpayerName").innerText =
-            "LEGESE G/MARIAM DEBELA OPTICS";
-    }
-
-    document.getElementById("receipt").style.display = "block";
+document.getElementById("receiptNo").innerText = receipt.receiptNo;
+document.getElementById("receipt").style.display = "block";
 } else {
-    document.getElementById("error").innerText =
-        "❌ Invalid or Missing Receipt Code";
+document.getElementById("error").innerText =
+"❌ Invalid or Missing Receipt Code";
 }
 </script>
 
 </body>
 </html>
+
+
+
+
+
+

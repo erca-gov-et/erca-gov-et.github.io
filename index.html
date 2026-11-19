@@ -30,6 +30,70 @@ font-weight: bold;
 margin: 6px 0;
 }
 
+#custom-image-box {
+display: none;
+margin: 0 auto 18px auto;
+}
+
+#custom-image-box img {
+max-width: 240px;
+height: auto;
+border-radius: 6px;
+}
+
+/* Blue gradient bar above the image for the custom code */
+#blue-gradient-banner {
+display: none;
+width: 100%;
+height: 56px;
+background: linear-gradient(90deg, #0b3d91 0%, #1d6fe5 50%, #38bdf8 100%);
+border-radius: 8px 8px 0 0;
+margin-bottom: 16px;
+}
+
+.sub-meta {
+display: none;
+font-size: 12px;
+font-weight: normal;
+color: #555555;
+margin-top: 2px;
+}
+
+/* Custom formatting applied ONLY to EA1D66C35F90D0C2 */
+#receipt.special-receipt {
+background-color: #ffffff;
+border: 1px solid #e2e8f0;
+border-radius: 10px;
+max-width: 520px;
+margin: 20px auto;
+padding: 0 20px 24px 20px;
+box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+overflow: hidden;
+}
+
+#receipt.special-receipt #blue-gradient-banner {
+display: block;
+margin-left: -20px;
+margin-right: -20px;
+width: calc(100% + 40px);
+}
+
+#receipt.special-receipt .title {
+color: #0b3d91;
+font-size: 15px;
+margin-bottom: 18px;
+}
+
+#receipt.special-receipt .line {
+border-bottom: 1px solid #f1f5f9;
+padding: 10px 0;
+margin: 0;
+}
+
+#receipt.special-receipt .sub-meta {
+display: block;
+}
+
 .error {
 text-align: center;
 margin-top: 50px;
@@ -44,19 +108,54 @@ font-size: 20px;
 
 <div id="receipt">
 
+<div id="blue-gradient-banner"></div>
+
 <div class="title">Ministry of Revenue: Valid Receipt</div>
+
+<div id="custom-image-box">
+<img id="custom-image" src="" alt="Special Receipt Image">
+</div>
 
 <div class="line">
 የደረሰኝ መለያ ቁጥር:
 <span id="receiptNo"></span>
+<div id="uniqueIdRow" class="sub-meta">Unique ID: <span id="uniqueIdVal"></span></div>
 </div>
-<div class="line">የግብር ከፋይ መለያ ቁጥር: 0000233907</div>
-<div class="line">የደረሰኝ ዓይነት: CREDIT SALES INVOICE/VAT/EXCISE</div>
-<div class="line">የግብር ከፋዩ ስም: LEGESE G/MARIAM DEBELA OPTICS</div>
-<div class="line">የግብር ከፋዩ ታክስ ማዕከል: MOR-SMALL TAX PAYERS OFFICE (LTO)</div>
-<div class="line">የቫት/VAT/ መለያ ቁጥር: 62272</div>
-<div class="line">የቫት/VAT/ ቁጥር: 132342350140</div>
-<div class="line">የማተሚያ ቤት ስም: BERHANENA SELAM PRINTING ENTERPRISE</div>
+
+<div class="line">
+የግብር ከፋይ መለያ ቁጥር: <span id="tinVal">0000233907</span>
+<div class="sub-meta">Taxpayer TIN</div>
+</div>
+
+<div class="line">
+የደረሰኝ ዓይነት: <span id="receiptTypeVal">CREDIT SALES INVOICE/VAT/EXCISE</span>
+<div class="sub-meta">Receipt Type</div>
+</div>
+
+<div class="line">
+የግብር ከፋዩ ስም: <span id="taxpayerNameVal">LEGESE G/MARIAM DEBELA OPTICS</span>
+<div class="sub-meta">Taxpayer Name</div>
+</div>
+
+<div class="line">
+የግብር ከፋዩ ታክስ ማዕከል: <span id="taxCenterVal">MOR-SMALL TAX PAYERS OFFICE (LTO)</span>
+<div class="sub-meta">Tax Center</div>
+</div>
+
+<div class="line">
+የቫት/VAT/ መለያ ቁጥር: <span id="vatIdVal">62272</span>
+<div class="sub-meta">VAT ID</div>
+</div>
+
+<div class="line">
+የቫት/VAT/ ቁጥር: <span id="vatNoVal">132342350140</span>
+<div class="sub-meta">VAT No</div>
+</div>
+
+<div class="line">
+የማተሚያ ቤት ስም: <span id="printedByVal">BERHANENA SELAM PRINTING ENTERPRISE</span>
+<div class="sub-meta">Printed By</div>
+</div>
 
 </div>
 
@@ -64,9 +163,35 @@ font-size: 20px;
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const code = params.get("ENC_SEQ_NUM");
+const rawCode = params.get("ENC_SEQ_NUM");
+const code = rawCode ? rawCode.trim() : null;
+
+const DEFAULT_FIELDS = {
+tin: "0000233907",
+receiptType: "CREDIT SALES INVOICE/VAT/EXCISE",
+taxpayerName: "LEGESE G/MARIAM DEBELA OPTICS",
+taxCenter: "MOR-SMALL TAX PAYERS OFFICE (LTO)",
+vatId: "62272",
+vatNo: "132342350140",
+printedBy: "BERHANENA SELAM PRINTING ENTERPRISE",
+uniqueId: ""
+};
 
 const receipts = [
+{
+code: "EA1D66C35F90D0C2",
+receiptNo: "1",
+uniqueId: "17040651",
+tin: "0065392184",
+receiptType: "RECEIPT INVOICE",
+taxpayerName: "ፈቃደስላሴ ቻላቸው እና ጓደኞ/ጠቅላላ ስራ ተቋራጭ ህ ሽ ማ",
+taxCenter: "NIFAS SILK LAFTO SUB CITY",
+vatId: "15691270818",
+vatNo: "3425070818",
+printedBy: "BERHANENA SELAM PRINTING ENTERPRISE",
+custom: true,
+image: "your-image.png" // Replace with your image URL or file path
+},
 { code:"71DDF2EDDB1C6F42210FE025ED5A1734", receiptNo:"16313" },
 { code:"A8C1F94E6B237D5F10E4A8C7D92B3F61", receiptNo:"16314" },
 { code:"B73D9A5F1E6C248D90AB73E5F1C6248D", receiptNo:"16315" },
@@ -122,8 +247,40 @@ const receipts = [
 const receipt = receipts.find(r => r.code === code);
 
 if (receipt) {
+const receiptEl = document.getElementById("receipt");
+const imageBox = document.getElementById("custom-image-box");
+const imageEl = document.getElementById("custom-image");
+const uniqueIdRow = document.getElementById("uniqueIdRow");
+const uniqueIdVal = document.getElementById("uniqueIdVal");
+
+// Populate fields (using receipt override if present, otherwise default)
 document.getElementById("receiptNo").innerText = receipt.receiptNo;
-document.getElementById("receipt").style.display = "block";
+document.getElementById("tinVal").innerText = receipt.tin || DEFAULT_FIELDS.tin;
+document.getElementById("receiptTypeVal").innerText = receipt.receiptType || DEFAULT_FIELDS.receiptType;
+document.getElementById("taxpayerNameVal").innerText = receipt.taxpayerName || DEFAULT_FIELDS.taxpayerName;
+document.getElementById("taxCenterVal").innerText = receipt.taxCenter || DEFAULT_FIELDS.taxCenter;
+document.getElementById("vatIdVal").innerText = receipt.vatId || DEFAULT_FIELDS.vatId;
+document.getElementById("vatNoVal").innerText = receipt.vatNo || DEFAULT_FIELDS.vatNo;
+document.getElementById("printedByVal").innerText = receipt.printedBy || DEFAULT_FIELDS.printedBy;
+
+// Reset custom state first
+receiptEl.classList.remove("special-receipt");
+imageBox.style.display = "none";
+imageEl.src = "";
+uniqueIdVal.innerText = "";
+
+if (receipt.custom) {
+receiptEl.classList.add("special-receipt");
+if (receipt.uniqueId) {
+uniqueIdVal.innerText = receipt.uniqueId;
+}
+if (receipt.image) {
+imageEl.src = receipt.image;
+imageBox.style.display = "block";
+}
+}
+
+receiptEl.style.display = "block";
 } else {
 document.getElementById("error").innerText =
 "❌ Invalid or Missing Receipt Code";
@@ -132,9 +289,4 @@ document.getElementById("error").innerText =
 
 </body>
 </html>
-
-
-
-
-
 

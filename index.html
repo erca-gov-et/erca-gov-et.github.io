@@ -34,67 +34,164 @@ margin: 6px 0;
 display: none;
 }
 
-#custom-image-box {
+#valid-badge {
 display: none;
 }
 
-#custom-image-box img {
-max-width: 240px;
-height: auto;
-border-radius: 6px;
+.field-am {
+font-size: 14px;
+font-weight: 700;
+color: #111827;
+}
+
+.field-en {
+display: none;
+font-size: 12px;
+font-weight: 500;
+color: #6b7280;
+margin-top: 2px;
+}
+
+.field-val {
+font-size: 14px;
+font-weight: 700;
+color: #111827;
+margin-top: 4px;
+}
+
+.field-val-blue {
+color: #1d4ed8;
+font-size: 16px;
 }
 
 .sub-meta {
 display: none;
 font-size: 12px;
-font-weight: normal;
-color: #555555;
-margin-top: 2px;
+font-weight: 500;
+color: #6b7280;
+margin-top: 3px;
 }
 
-/* Custom formatting applied ONLY to EA1D66C35F90D0C2 */
+/* Custom card & layout applied ONLY to EA1D66C35F90D0C2 */
 #receipt.special-receipt {
 background-color: #ffffff;
-border: 1px solid #e2e8f0;
-border-radius: 10px;
-max-width: 520px;
-margin: 20px auto;
+border: 1px solid #e5e7eb;
+border-radius: 14px;
+max-width: 440px;
+margin: 16px auto;
 padding: 0 0 24px 0;
-box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
 overflow: hidden;
+text-align: left;
 }
 
 #receipt.special-receipt #blue-gradient-banner {
-display: block;
-width: 100%;
-background: linear-gradient(135deg, #0b3d91 0%, #1d6fe5 55%, #38bdf8 100%);
-padding: 22px 20px;
-box-sizing: border-box;
-margin-bottom: 18px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background: linear-gradient(180deg, #2563eb 0%, #3b49df 55%, #6d28d9 100%);
+padding: 26px 20px 24px 20px;
+color: #ffffff;
+text-align: center;
 }
 
 #receipt.special-receipt #custom-image-box {
-margin: 0 auto;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 96px;
+height: 96px;
+border-radius: 50%;
+background-color: #ffffff;
+padding: 6px;
+box-sizing: border-box;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+margin-bottom: 14px;
 }
 
-#receipt.special-receipt #receipt-details {
-padding: 0 20px;
+#receipt.special-receipt #custom-image-box img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+border-radius: 50%;
+display: block;
+}
+
+.banner-am {
+display: none;
+font-size: 18px;
+font-weight: 700;
+line-height: 1.35;
+color: #ffffff;
+}
+
+.banner-en {
+display: none;
+font-size: 13px;
+font-weight: 400;
+color: rgba(255, 255, 255, 0.9);
+margin-top: 4px;
+}
+
+#receipt.special-receipt .banner-am,
+#receipt.special-receipt .banner-en {
+display: block;
+}
+
+#receipt.special-receipt #valid-badge {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+background-color: #dcfce7;
+color: #15803d;
+font-weight: 700;
+font-size: 15px;
+margin: 18px 18px 8px 18px;
+padding: 13px 16px;
+border-radius: 10px;
+text-align: center;
 }
 
 #receipt.special-receipt .title {
-color: #0b3d91;
-font-size: 15px;
-margin-bottom: 18px;
+display: none;
+}
+
+#receipt.special-receipt #receipt-details {
+padding: 4px 20px 0 20px;
 }
 
 #receipt.special-receipt .line {
 border-bottom: 1px solid #f1f5f9;
-padding: 10px 0;
+padding: 14px 0;
 margin: 0;
+font-weight: normal;
 }
 
+#receipt.special-receipt .line:last-child {
+border-bottom: none;
+}
+
+#receipt.special-receipt .field-en,
 #receipt.special-receipt .sub-meta {
 display: block;
+}
+
+#receipt.special-receipt #receiptNo.field-val {
+display: block;
+color: #1d4ed8;
+font-size: 16px;
+font-weight: 700;
+margin-top: 4px;
+}
+
+#receipt.special-receipt .field-val:not(#receiptNo) {
+display: block;
+color: #111827;
+font-size: 14px;
+font-weight: 700;
+margin-top: 4px;
 }
 
 .error {
@@ -113,52 +210,67 @@ font-size: 20px;
 
 <div id="blue-gradient-banner">
   <div id="custom-image-box">
-    <img id="custom-image" src="" alt="Special Receipt Image">
+    <img id="custom-image" src="" alt="Ministry of Revenues Logo">
   </div>
+  <div class="banner-am">የኢትዮጵያ ገቢዎች ሚኒስቴር</div>
+  <div class="banner-en">Ethiopia Ministry of Revenue</div>
+</div>
+
+<div id="valid-badge">
+  <span>✓</span>
+  <span>Valid Receipt</span>
 </div>
 
 <div id="receipt-details">
   <div class="title">Ministry of Revenue: Valid Receipt</div>
 
   <div class="line">
-  የደረሰኝ መለያ ቁጥር:
-  <span id="receiptNo"></span>
-  <div id="uniqueIdRow" class="sub-meta">Unique ID: <span id="uniqueIdVal"></span></div>
+    <div class="field-am">የደረሰኝ መለያ ቁጥር</div>
+    <div class="field-en">Receipt No.</div>
+    <span id="receiptNo" class="field-val"></span>
+    <div id="uniqueIdRow" class="sub-meta">Unique ID: <span id="uniqueIdVal"></span></div>
   </div>
 
   <div class="line">
-  የግብር ከፋይ መለያ ቁጥር: <span id="tinVal">0000233907</span>
-  <div class="sub-meta">Taxpayer TIN</div>
+    <div class="field-am">የግብር ከፋይ መለያ ቁጥር</div>
+    <div class="field-en">Taxpayer TIN</div>
+    <span id="tinVal" class="field-val">0000233907</span>
   </div>
 
   <div class="line">
-  የደረሰኝ ዓይነት: <span id="receiptTypeVal">CREDIT SALES INVOICE/VAT/EXCISE</span>
-  <div class="sub-meta">Receipt Type</div>
+    <div class="field-am">የደረሰኝ ዓይነት</div>
+    <div class="field-en">Receipt Type</div>
+    <span id="receiptTypeVal" class="field-val">CREDIT SALES INVOICE/VAT/EXCISE</span>
   </div>
 
   <div class="line">
-  የግብር ከፋዩ ስም: <span id="taxpayerNameVal">LEGESE G/MARIAM DEBELA OPTICS</span>
-  <div class="sub-meta">Taxpayer Name</div>
+    <div class="field-am">የግብር ከፋዩ ስም</div>
+    <div class="field-en">Taxpayer Name</div>
+    <span id="taxpayerNameVal" class="field-val">LEGESE G/MARIAM DEBELA OPTICS</span>
   </div>
 
   <div class="line">
-  የግብር ከፋዩ ታክስ ማዕከል: <span id="taxCenterVal">MOR-SMALL TAX PAYERS OFFICE (LTO)</span>
-  <div class="sub-meta">Tax Center</div>
+    <div class="field-am">የግብር ከፋዩ ታክስ ማዕከል</div>
+    <div class="field-en">Tax Center</div>
+    <span id="taxCenterVal" class="field-val">MOR-SMALL TAX PAYERS OFFICE (LTO)</span>
   </div>
 
   <div class="line">
-  የቫት/VAT/ መለያ ቁጥር: <span id="vatIdVal">62272</span>
-  <div class="sub-meta">VAT ID</div>
+    <div class="field-am">የቫት/VAT/ መለያ ቁጥር</div>
+    <div class="field-en">VAT ID</div>
+    <span id="vatIdVal" class="field-val">62272</span>
   </div>
 
   <div class="line">
-  የቫት/VAT/ ቁጥር: <span id="vatNoVal">132342350140</span>
-  <div class="sub-meta">VAT No</div>
+    <div class="field-am">የቫት/VAT/ ቁጥር</div>
+    <div class="field-en">VAT No</div>
+    <span id="vatNoVal" class="field-val">132342350140</span>
   </div>
 
   <div class="line">
-  የማተሚያ ቤት ስም: <span id="printedByVal">BERHANENA SELAM PRINTING ENTERPRISE</span>
-  <div class="sub-meta">Printed By</div>
+    <div class="field-am">የማተሚያ ቤት ስም</div>
+    <div class="field-en">Printed By</div>
+    <span id="printedByVal" class="field-val">BERHANENA SELAM PRINTING ENTERPRISE</span>
   </div>
 </div>
 
@@ -254,6 +366,7 @@ const receipt = receipts.find(r => r.code === code);
 if (receipt) {
   const receiptEl = document.getElementById("receipt");
   const gradientBanner = document.getElementById("blue-gradient-banner");
+  const validBadge = document.getElementById("valid-badge");
   const imageBox = document.getElementById("custom-image-box");
   const imageEl = document.getElementById("custom-image");
   const uniqueIdVal = document.getElementById("uniqueIdVal");
@@ -267,9 +380,9 @@ if (receipt) {
   document.getElementById("vatNoVal").innerText = receipt.vatNo || DEFAULT_FIELDS.vatNo;
   document.getElementById("printedByVal").innerText = receipt.printedBy || DEFAULT_FIELDS.printedBy;
 
-  // Reset custom state first
   receiptEl.classList.remove("special-receipt");
   gradientBanner.style.display = "none";
+  validBadge.style.display = "none";
   imageBox.style.display = "none";
   imageEl.src = "";
   uniqueIdVal.innerText = "";
@@ -279,10 +392,11 @@ if (receipt) {
     if (receipt.uniqueId) {
       uniqueIdVal.innerText = receipt.uniqueId;
     }
+    gradientBanner.style.display = "flex";
+    validBadge.style.display = "flex";
     if (receipt.image) {
       imageEl.src = receipt.image;
-      gradientBanner.style.display = "block";
-      imageBox.style.display = "block";
+      imageBox.style.display = "flex";
     }
   }
 

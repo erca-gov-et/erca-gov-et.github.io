@@ -59,11 +59,6 @@ color: #111827;
 margin-top: 4px;
 }
 
-.field-val-blue {
-color: #1d4ed8;
-font-size: 16px;
-}
-
 .sub-meta {
 display: none;
 font-size: 12px;
@@ -72,7 +67,7 @@ color: #6b7280;
 margin-top: 3px;
 }
 
-/* Custom card & layout applied ONLY to EA1D66C35F90D0C2 */
+/* Applied to every valid receipt */
 #receipt.special-receipt {
 background-color: #ffffff;
 border: 1px solid #e5e7eb;
@@ -173,8 +168,7 @@ font-weight: normal;
 border-bottom: none;
 }
 
-#receipt.special-receipt .field-en,
-#receipt.special-receipt .sub-meta {
+#receipt.special-receipt .field-en {
 display: block;
 }
 
@@ -283,6 +277,8 @@ const params = new URLSearchParams(window.location.search);
 const rawCode = params.get("ENC_SEQ_NUM");
 const code = rawCode ? rawCode.trim() : null;
 
+const SHARED_IMAGE = "erca.png"; // Replace with your working image filename in the same folder
+
 const DEFAULT_FIELDS = {
   tin: "0000233907",
   receiptType: "CREDIT SALES INVOICE/VAT/EXCISE",
@@ -291,7 +287,8 @@ const DEFAULT_FIELDS = {
   vatId: "62272",
   vatNo: "132342350140",
   printedBy: "BERHANENA SELAM PRINTING ENTERPRISE",
-  uniqueId: ""
+  uniqueId: "",
+  image: SHARED_IMAGE
 };
 
 const receipts = [
@@ -299,15 +296,14 @@ const receipts = [
   code: "EA1D66C35F90D0C2",
   receiptNo: "1",
   uniqueId: "17040651",
-  tin: "0063911324",
+  tin: "0065392184",
   receiptType: "RECEIPT INVOICE",
-  taxpayerName: "አስማማው ይታየውና እና ጓደኞ/ጠቅላላ ስራ ተቋራጭ ህ ሽ ማ",
+  taxpayerName: "ፈቃደስላሴ ቻላቸው እና ጓደኞ/ጠቅላላ ስራ ተቋራጭ ህ ሽ ማ",
   taxCenter: "NIFAS SILK LAFTO SUB CITY",
   vatId: "15691270818",
-  vatNo: "16923500818",
+  vatNo: "3425070818",
   printedBy: "BERHANENA SELAM PRINTING ENTERPRISE",
-  custom: true,
-  image: "erca.png" // Keep your working image filename here
+  image: SHARED_IMAGE
 },
 { code:"71DDF2EDDB1C6F42210FE025ED5A1734", receiptNo:"16313" },
 { code:"A8C1F94E6B237D5F10E4A8C7D92B3F61", receiptNo:"16314" },
@@ -369,6 +365,7 @@ if (receipt) {
   const validBadge = document.getElementById("valid-badge");
   const imageBox = document.getElementById("custom-image-box");
   const imageEl = document.getElementById("custom-image");
+  const uniqueIdRow = document.getElementById("uniqueIdRow");
   const uniqueIdVal = document.getElementById("uniqueIdVal");
 
   document.getElementById("receiptNo").innerText = receipt.receiptNo;
@@ -380,24 +377,26 @@ if (receipt) {
   document.getElementById("vatNoVal").innerText = receipt.vatNo || DEFAULT_FIELDS.vatNo;
   document.getElementById("printedByVal").innerText = receipt.printedBy || DEFAULT_FIELDS.printedBy;
 
-  receiptEl.classList.remove("special-receipt");
-  gradientBanner.style.display = "none";
-  validBadge.style.display = "none";
-  imageBox.style.display = "none";
-  imageEl.src = "";
-  uniqueIdVal.innerText = "";
+  // Apply the same custom visual card styling to all valid receipts
+  receiptEl.classList.add("special-receipt");
+  gradientBanner.style.display = "flex";
+  validBadge.style.display = "flex";
 
-  if (receipt.custom) {
-    receiptEl.classList.add("special-receipt");
-    if (receipt.uniqueId) {
-      uniqueIdVal.innerText = receipt.uniqueId;
-    }
-    gradientBanner.style.display = "flex";
-    validBadge.style.display = "flex";
-    if (receipt.image) {
-      imageEl.src = receipt.image;
-      imageBox.style.display = "flex";
-    }
+  const imgSrc = receipt.image || SHARED_IMAGE;
+  if (imgSrc) {
+    imageEl.src = imgSrc;
+    imageBox.style.display = "flex";
+  } else {
+    imageBox.style.display = "none";
+  }
+
+  // Show Unique ID only when provided on the receipt entry
+  if (receipt.uniqueId) {
+    uniqueIdVal.innerText = receipt.uniqueId;
+    uniqueIdRow.style.display = "block";
+  } else {
+    uniqueIdVal.innerText = "";
+    uniqueIdRow.style.display = "none";
   }
 
   receiptEl.style.display = "block";
